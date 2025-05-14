@@ -1,16 +1,13 @@
-<tool id="quality_metrics" name="Quality Metrics" version="2.2.8">
+<tool id="quality_metrics" name="Quality Metrics" version="2.3.0+galaxy0">
   <description>Metrics and graphics to check the quality of the data</description>
 
   <requirements>
-    <requirement type="package" version="1.1_4">r-batch</requirement>
-    <requirement type="package" version="1.10.0">bioconductor-ropls</requirement>
+    <requirement type="package" version="4">r-base</requirement>
+    <requirement type="package" version="1.1_5">r-batch</requirement>
+    <requirement type="package" version="1.38.0">bioconductor-ropls</requirement>
   </requirements>
-  
-  <stdio>
-    <exit_code range="1:" level="fatal" />
-  </stdio>
-  
-  <command><![CDATA[
+   
+  <command detect_errors="aggressive"><![CDATA[
   Rscript $__tool_directory__/qualitymetrics_wrapper.R
   dataMatrix_in "$dataMatrix_in"
   sampleMetadata_in "$sampleMetadata_in"
