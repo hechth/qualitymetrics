@@ -1,4 +1,4 @@
-<tool id="quality_metrics" name="Quality Metrics" version="2.3.0+galaxy0">
+<tool id="quality_metrics" name="Quality Metrics" version="2.3.0+galaxy0" profile="23.0">
   <description>Metrics and graphics to check the quality of the data</description>
 
   <requirements>
@@ -52,24 +52,23 @@
         <param name="seuil" type="float" label="Threshold" value="1.25" min="0.0000000000000001" help="if comparing pool and sample CVs, corresponds to the max ratio tolerated (basically between 1.0 and 1.25) ; else corresponds to the max pool CV tolerated (basically 0.3)"/>
       </when>
       <when value="FALSE">
-	<param name="Compa" type="hidden" value="TRUE"/>
-	<param name="seuil" type="hidden" value="1"/>
+	      <param name="Compa" type="hidden" value="TRUE"/>
+	      <param name="seuil" type="hidden" value="1"/>
       </when>	
     </conditional>
     
     <conditional name="advPar">
       <param name="optC" type="select" label="Advanced parameters" >
-	<option value="default" selected="true">Use default</option>
-	<option value="full">Full parameter list</option>
+	      <option value="default" selected="true">Use default</option>
+	      <option value="full">Full parameter list</option>
       </param>     
       <when value="full">
-	<param name="poolAsPool1L" type="boolean" checked="true" truevalue="TRUE" falsevalue="FALSE" label="Use 'pool' samples as 'pool1' when computing the correlation with dilution?"/>
+	      <param name="poolAsPool1L" type="boolean" checked="true" truevalue="TRUE" falsevalue="FALSE" label="Use 'pool' samples as 'pool1' when computing the correlation with dilution?"/>
       </when>
       <when value="default">
       	<param name="poolAsPool1L" type="hidden" value="TRUE"/>
       </when>
     </conditional>
-    
   </inputs>
   
   <outputs>
@@ -84,8 +83,12 @@
       <param name="dataMatrix_in" value="input-dataMatrix.tsv"/>
       <param name="sampleMetadata_in" value="input-sampleMetadata.tsv"/>
       <param name="variableMetadata_in" value="input-variableMetadata.tsv"/>
-      <param name="CV" value="FALSE"/>
-      <param name="optC" value="default"/>
+      <conditional name="CV_condition">
+        <param name="CV" value="FALSE"/>
+      </conditional>
+      <conditional name="advPar">
+        <param name="optC" value="default"/>
+      </conditional>
       <output name="sampleMetadata_out" file="output-sampleMetadata.tsv"/>
       <output name="variableMetadata_out" file="output-variableMetadata.tsv"/>
     </test>
