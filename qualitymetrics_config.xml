@@ -21,13 +21,7 @@
   Compa "TRUE"
   seuil "1"
   #end if
-  
-  #if $advPar.optC == "full"
-  poolAsPool1L "$advPar.poolAsPool1L"
-  #else:
-  poolAsPool1L "TRUE"
-  #end if
-  
+  poolAsPool1L "$poolAsPool1L"
   sampleMetadata_out "$sampleMetadata_out"      
   variableMetadata_out "$variableMetadata_out"
   figure "$figure"
@@ -51,24 +45,10 @@
         </param>
         <param name="seuil" type="float" label="Threshold" value="1.25" min="0.0000000000000001" help="if comparing pool and sample CVs, corresponds to the max ratio tolerated (basically between 1.0 and 1.25) ; else corresponds to the max pool CV tolerated (basically 0.3)"/>
       </when>
-      <when value="FALSE">
-	      <param name="Compa" type="hidden" value="TRUE"/>
-	      <param name="seuil" type="hidden" value="1"/>
-      </when>	
+      <when value="FALSE" />
     </conditional>
     
-    <conditional name="advPar">
-      <param name="optC" type="select" label="Advanced parameters" >
-	      <option value="default" selected="true">Use default</option>
-	      <option value="full">Full parameter list</option>
-      </param>     
-      <when value="full">
-	      <param name="poolAsPool1L" type="boolean" checked="true" truevalue="TRUE" falsevalue="FALSE" label="Use 'pool' samples as 'pool1' when computing the correlation with dilution?"/>
-      </when>
-      <when value="default">
-      	<param name="poolAsPool1L" type="hidden" value="TRUE"/>
-      </when>
-    </conditional>
+	  <param name="poolAsPool1L" type="boolean" checked="true" truevalue="TRUE" falsevalue="FALSE" label="Use 'pool' samples as 'pool1' when computing the correlation with dilution?"/>
   </inputs>
   
   <outputs>
@@ -85,9 +65,6 @@
       <param name="variableMetadata_in" value="input-variableMetadata.tsv"/>
       <conditional name="CV_condition">
         <param name="CV" value="FALSE"/>
-      </conditional>
-      <conditional name="advPar">
-        <param name="optC" value="default"/>
       </conditional>
       <output name="sampleMetadata_out" file="output-sampleMetadata.tsv"/>
       <output name="variableMetadata_out" file="output-variableMetadata.tsv"/>
